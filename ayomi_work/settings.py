@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'ayomi_work.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'db.sqlite3',
         'USER': '<nom d\'utilisateur>',
         'PASSWORD': '<mot de passe MySQL>',        
         'HOST': '127.0.0.1',                    # Utile si votre base de données est sur une autre machine
@@ -128,5 +128,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-LOGIN_REDIRECT_URL = '/home'
-LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/userAccount/profile'
+LOGIN_URL = '/userAccount/login'
+LOGOUT_REDIRECT_URL = '/userAccount/login'
