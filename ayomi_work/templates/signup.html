@@ -1,10 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
+  
+    <div class="row justify-content-center text-center">
+    	<div class="col-6">
+    		<div class="card">
+    			<div class="card-body">
+				    <form method="post">
+				    	<h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+
+				    	{% csrf_token %}
+				    	<div class="alert alert-danger" role="alert">
+				    		<ul>
+					    		{% for field in form %}
+					    			{% if field.errors %}
+					    				{% for error in field.errors %}
+	        								<li><em>{{ error|escape }}</em></li>
+	    								{% endfor %}
+	    							{% endif %}
+	    						{% endfor %}
+    						</ul>
+				    	</div>				    	
+
+				    	<div class="form-group">
+				    		<label for="id_username" class="sr-only">Username:</label> 
+				    		<input type="text" class="form-control" name="username" maxlength="150" autofocus="" required="" id="id_username" placeholder="Username"> 
+				    		<small class="form-text text-muted text-left">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+				    		
+				    	</div>
+
+				    	<div class="form-group">
+				    		<label for="id_email" class="sr-only">Email:</label> 
+				    		<input type="email" class="form-control" name="email" required="" id="id_email" placeholder="Email">
+				    		
+				    	</div>
+
+				    	<div class="form-group">
+				    		<label for="id_password1" class="sr-only">Password:</label> 
+				    		<input type="password" class="form-control" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="Password"> 
+				    		<small class="form-text text-muted text-left">Your password must contain at least 8 characters, and can’t be entirely numeric</small>
+				    		
+				    	</div>
+
+				    	<div class="form-group">
+				    		<label for="id_password2" class="sr-only">Password confirmation:</label>
+				    		<input type="password" class="form-control" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="Password confirmation"> 
+				    		<small class="form-text text-muted text-left ">Enter the same password as before, for verification.</small>
+				    		
+				    	</div>
+				    <button type="submit" class="btn btn-primary">Sign up</button>
+				  </form>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
