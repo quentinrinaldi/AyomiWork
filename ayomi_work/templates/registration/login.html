@@ -5,13 +5,14 @@
     <link rel="stylesheet" href="{% static 'css/signin.css' %}" />
 {% endblock %}
 
-{% block body %}
+{% block content %}
+
 
 {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
 
-
+<div class="card bg-light">
    <form method="post" action="{% url 'login' %}" class="form-signin">
       <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -24,6 +25,17 @@
       <input class="btn btn-primary" type="submit" value="login"  />
     </form> 
 
+<hr>
+<div class="row">
+                <div class="col-sm-12">
+                  
+  <a href="{% url 'signup' %}">Sign up</a><br>
+
+  <a href="{% url 'password_reset' %}">Forgot your password?</a><br>
+
+                </div>
+              </div>
+              </div>
 {% endblock %}
 
 </body>

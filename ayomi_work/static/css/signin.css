@@ -8,3 +8,8 @@
 .form-control {
 	margin:5px;
 }
+
+.card {
+    margin-top: 50px;
+    background-color: #FAFAFA !important;
+}
