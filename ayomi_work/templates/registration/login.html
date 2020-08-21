@@ -10,32 +10,36 @@
 
 {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
+{% endif %}
 
-<div class="card bg-light">
-   <form method="post" action="{% url 'login' %}" class="form-signin form-group">
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      {% csrf_token %}
-      <label for="usernameInput" class="sr-only">Nom d'utilisateur</label>
-      <input type="text" id="usernameInput" name="username" class="form-control" placeholder="Nom d'utilisteur" required="" autofocus="">
-      <label for="inputPassword" class="sr-only">Mot de passe</label>
-      <input type="password" id="inputPassword" name=password class="form-control" placeholder="Mot de passe" required="">
-     
-      <input class="btn btn-primary" type="submit" value="login"  />
-    </form> 
+<div class="row justify-content-center text-center">
+  <div class="col-6">
+    <div class="card bg-light">
+      <form method="post" action="{% url 'login' %}" class="form-signin form-group">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        {% csrf_token %}
 
-<hr>
-<div class="row">
-                <div class="col-sm-12">
-                  
-  <a href="{% url 'signup' %}">Sign up</a><br>
+        <div class="form-group">
+          <label for="usernameInput" class="sr-only">Nom d'utilisateur</label>
+          <input type="text" id="usernameInput" name="username" class="form-control" placeholder="Nom d'utilisteur" required="" autofocus="">
+        </div>
 
-  <a href="{% url 'password_reset' %}">Forgot your password?</a><br>
-
-                </div>
-              </div>
-              </div>
+        <div class="form-group">
+          <label for="inputPassword" class="sr-only">Mot de passe</label>
+          <input type="password" id="inputPassword" name=password class="form-control" placeholder="Mot de passe" required="">
+        </div>
+        <input class="btn btn-primary full-width" type="submit" value="login"  />
+      </form> 
+      <hr>
+      <div class="row">
+        <div class="col-sm-12">
+          <small><a href="{% url 'signup' %}">Sign up</a></small><br>
+          <small><a href="{% url 'password_reset' %}">Forgot your password?</a></small><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 </body>
