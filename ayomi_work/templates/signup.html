@@ -10,17 +10,18 @@
 				    	<h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
 
 				    	{% csrf_token %}
-				    	<div class="alert alert-danger" role="alert">
-				    		<ul>
-					    		{% for field in form %}
-					    			{% if field.errors %}
-					    				{% for error in field.errors %}
-	        								<li><em>{{ error|escape }}</em></li>
-	    								{% endfor %}
-	    							{% endif %}
-	    						{% endfor %}
-    						</ul>
-				    	</div>				    	
+				    	{% if form.errors %}
+				    		<div class="alert alert-danger" role="alert">
+				    			<ul>
+				    				{% for field, errors in form.errors.items %}
+				    					{% for error in errors %}
+				    						<li><em>{{ error|escape }}</em></li>
+			    						{% endfor %}
+			    					{% endfor %}
+			    				</ul>
+			    			</div>
+			    		{% endif %}
+		  			    	
 
 				    	<div class="form-group">
 				    		<label for="id_username" class="sr-only">Username:</label> 

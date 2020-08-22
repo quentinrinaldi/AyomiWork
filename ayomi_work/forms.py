@@ -10,6 +10,13 @@ class SignupForm(UserCreationForm):
     	model = User
     	fields = ["username", "email", "password1", "password2"]
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if email and User.objects.filter(email=email).count():
+            raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
+        return email
+
 class UpdateProfileForm(forms.ModelForm):
     email = forms.EmailField(required=True)
 
