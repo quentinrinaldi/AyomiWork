@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}Login{% endblock %}
 {% block scripts %}
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/signin.css' %}" />
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -11,38 +12,38 @@
 
 
 <div class="row justify-content-center text-center">
-  <div class="col-6">
-    <div class="card bg-light">
-      <div class="card-body">
-        <form method="post" action="{% url 'login' %}" class="form-signin form-group">
-          <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-          {% csrf_token %}
+    <div class="col-6">
+        <div class="card bg-light">
+            <div class="card-body">
+                <form method="post" action="{% url 'login' %}" class="form-signin form-group">
+                    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                    {% csrf_token %}
 
-          {% if form.errors %}
-            <div class="alert alert-danger" role="alert"><small>Your username and password didn't match.</small></div>
-          {% endif %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert"><small>Your username and password didn't match.</small></div>
+                    {% endif %}
 
-          <div class="form-group">
-            <label for="usernameInput" class="sr-only">Nom d'utilisateur</label>
-            <input type="text" id="usernameInput" name="username" class="form-control" placeholder="Nom d'utilisteur" required="" autofocus="">
-          </div>
+                    <div class="form-group">
+                        <label for="usernameInput" class="sr-only">Username</label>
+                        <input type="text" id="usernameInput" name="username" class="form-control" placeholder="Nom d'utilisteur" required="" autofocus="">
+                    </div>
 
-          <div class="form-group">
-            <label for="inputPassword" class="sr-only">Mot de passe</label>
-            <input type="password" id="inputPassword" name=password class="form-control" placeholder="Mot de passe" required="">
-          </div>
-          <input class="btn btn-primary full-width" type="submit" value="login"  />
-        </form>
-        <hr>
-        <div class="row">
-          <div class="col-sm-12">
-            <small><a href="{% url 'signup' %}">Sign up</a></small><br>
-            <small><a href="{% url 'password_reset' %}">Forgot your password?</a></small><br>
-          </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" name=password class="form-control" placeholder="Mot de passe" required="">
+                    </div>
+                    <input class="btn btn-primary full-width" type="submit" value="login"  />
+                </form>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <small><a href="{% url 'signup' %}">Sign up</a></small><br>
+                        <small><a href="{% url 'password_reset' %}">Forgot your password?</a></small><br>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 {% endblock %}
 

@@ -132,4 +132,5 @@ LOGIN_REDIRECT_URL = '/userAccount/profile'
 LOGIN_URL = '/userAccount/login'
 LOGOUT_REDIRECT_URL = '/userAccount/login'
 
+# BECAUSE EMAIL IS NOT CONFIGURED, MESSAGES WILL BE SHOWED THROUGHOUT THE CONSOLE
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

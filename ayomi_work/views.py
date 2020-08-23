@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import *
+import json
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
 
 def signup(request):
     if request.method == 'POST':
@@ -26,10 +30,10 @@ def update_profile(request):
         form.actual_user = request.user
         if form.is_valid():
             form.save()
-            response = HttpResponse()
-            response['new_email'] = form.cleaned_data.get('email')
-            return response
-    else:
-        form = UpdateProfileForm()
-    args['form'] = form
-    return render(request, 'update_profile.html', args)
+            args['new_email'] = form.cleaned_data.get('email')
+            args['success'] = True
+            return JsonResponse(args);
+        else:
+            args['content'] = render_to_string("update_profile.html", {'form': form})
+            args['success'] = False
+            return JsonResponse(args);

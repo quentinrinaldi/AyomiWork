@@ -1,14 +1,88 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }} - {{ user.email }}!
-    <p><a href="{% url 'update_profile' %}">Modifier son adresse email</a></p>
-  <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
+<div class="row justify-content-center text-center">
+	<div class="col-8">
+
+		{% if user.is_authenticated %}
+
+	  		<p>Hello {{ user.username }} !</p> 
+	  		<iframe src="https://giphy.com/embed/mFdnWF1RTI7fi" width="384" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+	  		<p>Your email address is <em id="userEmail">{{ user.email }}</em></p>
+	    	<button class="btn btn-primary" id="updateProfileButton"> Change your email address </button>
+	  		<p><a href="{% url 'logout' %}">logout</a></p>
+
+			<div class="modal" id="updateProfileModal" tabindex="-1" role="dialog">
+			  	<div class="modal-dialog" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<h5 class="modal-title">Edit your email</h5>
+			        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          			<span aria-hidden="true">&times;</span>
+			        		</button>
+			      		</div>
+				      	<div class="modal-body">
+				        	<form action="{% url 'update_profile' %}" method="post" id="updateProfileForm">
+						  		{% csrf_token %}
+						  		<div class="errors-list">
+						  			{% if form.email.errors %}
+						    			{{ form.email.errors }}
+						  			{% endif %}
+						  		</div>
+						 		<div class="form-group">
+						        	<label for="id_email" class="">Enter your new email address</label>
+						        	<input type="email" name="email" required="" id="id_email">
+						    	</div>
+						    	<input type="submit" class="btn btn-primary btn-lg" value="Change Email">
+						  	</form>
+		      			</div>
+	    			</div>
+	  			</div>
+			</div>
+
+
+		{% else %}
+			<p>You are not logged in</p>
+			<a href="{% url 'login' %}">login</a>
+
+		{% endif %}
+
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+	$( "#updateProfileForm" ).submit(function( event ) {
+  		event.preventDefault();
+  		$.ajax({
+        	type: $(this).attr('method'),
+        	url: $(this).attr('action'),
+       		data: $(this).serialize(),
+       		dataType: 'json'
+       	})
+  		.done(function (data) {
+  			if (data['success'] == false) {
+  				$('#updateProfileModal .errors-list').replaceWith(data['content']);
+  			}
+  			else {
+  				$('#userEmail').replaceWith('<em id="userEmail">'+data['new_email']+'</em>');
+  				$('#updateProfileModal .modal-body').replaceWith('<div class="modal-body"><p>Operation reussie</p></div>');
+  			}
+          
+        })
+      	.fail(function (jqXHR, textStatus, errorThrown) {
+        	alert('fail ');
+        	alert(errorThrown);
+      	});
+	});
+
+	$('#updateProfileButton').on('click', function() {
+		$("#updateProfileModal").modal('show');
+	});
+});
+</script>
 {% endblock %}
