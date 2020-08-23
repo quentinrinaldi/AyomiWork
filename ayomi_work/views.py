@@ -24,7 +24,7 @@ def signup(request):
 
 def update_profile(request):
     args = {}
-
+# ONLY POST METHOD IS ACCEPTED. THE FORM IS DIRECTLY IN THE TEMPLATE
     if request.method == 'POST':
         form = UpdateProfileForm(request.POST, instance=request.user)
         form.actual_user = request.user
@@ -34,6 +34,7 @@ def update_profile(request):
             args['success'] = True
             return JsonResponse(args);
         else:
-            args['content'] = render_to_string("update_profile.html", {'form': form})
+            #IF FORM IS INVALID, JUST RETURN THE ERRORS THROUGHOUT THE TEMPLATE UPDATE_PROFILE_ERRORS
+            args['content'] = render_to_string("update_profile_errors.html", {'form': form})
             args['success'] = False
             return JsonResponse(args);
