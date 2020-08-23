@@ -59,6 +59,7 @@
 $(document).ready(function(){
 	$( "#updateProfileForm" ).submit(function( event ) {
   		event.preventDefault();
+  		//ASK FOR CHANGING EMAIL ADDRESS
   		$.ajax({
         	type: $(this).attr('method'),
         	url: $(this).attr('action'),
@@ -66,12 +67,13 @@ $(document).ready(function(){
        		dataType: 'json'
        	})
   		.done(function (data) {
+  			//IF FAILURE, SHOW ERRORS IN THE FORM
   			if (data['success'] == false) {
   				$('#updateProfileModal .errors-list').replaceWith(data['content']);
   			}
   			else {
+  				//IF SUCCESS, UPDATE THE EMAIL ADDRESS AND CLOSE THE MODAL
   				$('#userEmail').replaceWith('<em id="userEmail">'+data['new_email']+'</em>');
-  				//$('#updateProfileModal .modal-body').replaceWith('<div class="modal-body"><p>Operation reussie</p></div>');
   				$( "#updateProfileModal" ).modal('toggle');
   			}
           
